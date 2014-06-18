@@ -16,7 +16,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-     void mySetText(string myText);
+     void setRohdaten(QString QStr_Temperaturdaten);
+     void setMetadaten(QString QStr_Metadaten);
+
 
 private:
     Ui::MainWindow *ui;

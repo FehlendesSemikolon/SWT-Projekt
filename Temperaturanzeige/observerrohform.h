@@ -11,7 +11,7 @@ private:
 
 public:
     ObserverRohform(MainWindow *w);
-    void update(vector<Temperaturen> vectorTempa);
+    void update(Data data_myTemperaturdaten);
 
 };
 

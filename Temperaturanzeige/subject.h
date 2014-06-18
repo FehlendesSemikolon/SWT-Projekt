@@ -14,6 +14,7 @@ private:
     list<ObserverData*> myObservers; //Liste mit allen Observern
     Temperaturen myTemperaturen;
     vector<Temperaturen> myTemperatur;
+    Data Data_Temperaturdaten;
 
 public:
     Subject();

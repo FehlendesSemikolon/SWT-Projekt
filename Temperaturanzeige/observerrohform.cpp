@@ -1,23 +1,22 @@
 #include "observerrohform.h"
 
-
-
 ObserverRohform::ObserverRohform(MainWindow *w)
 {
     myMainWindow=w;
 }
 
-void ObserverRohform::update(vector<Temperaturen> vectorTempa)
+void ObserverRohform::update(Data data_myTemperaturdaten)
 {
-    string myString;
-    vector<Temperaturen>::iterator iter = vectorTempa.begin();
-    for(;iter!=vectorTempa.end();iter++)
+    string Str_Temperaturdaten;
+     vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
+    for(;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
     {
 
-        myString = myString + (iter)->Ort + ": " + (iter)->str_Temperatur;
-        myString = myString +"\n";
+        Str_Temperaturdaten = Str_Temperaturdaten + (iter)->Ort + ": " + (iter)->str_Temperatur;
+        Str_Temperaturdaten = Str_Temperaturdaten +"\n";
     }
 
-    myMainWindow->mySetText(myString);
+    QString QStr_Temperaturdaten = QString::fromUtf8(Str_Temperaturdaten.c_str());
+    myMainWindow->setRohdaten(QStr_Temperaturdaten);
 
 }

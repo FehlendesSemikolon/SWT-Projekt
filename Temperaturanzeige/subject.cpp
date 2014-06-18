@@ -27,7 +27,7 @@ void Subject::notify()
 {
     list<ObserverData*>::iterator iter = myObservers.begin();
     for(;iter!=myObservers.end();iter++)
-        (*iter)->update(myTemperatur);
+        (*iter)->update(Data_Temperaturdaten);
 }
 
 
@@ -36,7 +36,7 @@ void Subject::getData()
     //Quelle: http://www.gutefrage.net/frage/c-online-datei-auslesen
     HANDLE hLib;
     HANDLE hConn;
-    string myInput;
+    string str_Input;
 
 
     hLib=InternetOpen(L"MeinProgramm",
@@ -63,7 +63,7 @@ void Subject::getData()
              * "c" einlesen! */
 
              /* Daten verarbeiten */
-            myInput=array;
+            str_Input=array;
 
 
         } while(d!=0);
@@ -77,48 +77,48 @@ void Subject::getData()
     InternetCloseHandle(hLib);
     // Quelle Ende
 
-    int i=0;
-    int countData=0;
-    int countMeta=0;
+    int int_i=0;
+    int int_countData=0;
+    int int_countMetadata=0;
 
-    char * buffer = new char[myInput.length()];
-    strcpy(buffer,myInput.c_str());
+    char * buffer = new char[str_Input.length()];
+    strcpy(buffer,str_Input.c_str());
 
 
-    while(buffer[i]!=NULL) //ermittle Anzahl der Zeilen
+
+    while(buffer[int_i]!=NULL) //ermittle Anzahl der Zeilen
     {
 
-        if (buffer[i]=='\n')
-            countData++;  //Anzahl der Zeilen mit Temperaturdaten
-        if (buffer[i]=='#')
-            countMeta++; //Anzahl der Zeilen mit Metadatem
-        i++;
+        if (buffer[int_i]=='\n')
+            int_countData++;  //Anzahl der Zeilen mit Temperaturdaten
+        if (buffer[int_i]=='#')
+            int_countMetadata++; //Anzahl der Zeilen mit Metadatem
+        int_i++;
     }
 
-    for(int k=0;k<countMeta;k++) //lösche die Zeilen mit den Metadaten
+    for(int k=0;k<int_countMetadata;k++) //Speichere Metadaten in Vektor und lösche die Zeilen mit den Metadaten aus dem Input String
     {
-        size_t pos;
-        pos=myInput.find("\n");
-        myInput=myInput.substr(pos+1,myInput.length());
+        size_t size_t_posNewline;
+        size_t size_t_posColon;
+        size_t_posColon=str_Input.find(":");
+        size_t_posNewline=str_Input.find("\n");
+        Data_Temperaturdaten.Metadaten=Data_Temperaturdaten.Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon);
+        str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length());
     }
 
-    for (int i=0;i<(countData-countMeta);i++) //Vektor mit allen Orten und Temperaturen erstellen/befüllen
+    for (int i=0;i<(int_countData-int_countMetadata);i++) //Vektor mit allen Orten und Temperaturen erstellen/befüllen
     {
-        size_t posOrt;
-        size_t posTemperatur;
-        double double_tempDaten;
-        string tempDaten;
+        size_t size_t_posOrt;
+        size_t size_t_posTemperatur;
 
-        posOrt=myInput.find(",");
-        posTemperatur=myInput.find("\n");
-        myTemperatur.push_back(Temperaturen());
-        myTemperatur[i].Ort=myInput.substr(0,posOrt);
-        myTemperatur[i].str_Temperatur=myInput.substr(posOrt+1,posTemperatur-posOrt-1);
+        size_t_posOrt=str_Input.find(",");
+        size_t_posTemperatur=str_Input.find("\n");
+        Data_Temperaturdaten.vectorTemperaturen.push_back(Temperaturen());
+        Data_Temperaturdaten.vectorTemperaturen[i].Ort=str_Input.substr(0,size_t_posOrt);
+        Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur=str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1);
+        Data_Temperaturdaten.vectorTemperaturen[i].double_Temperatur=atof(Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur.c_str());
 
-        tempDaten=myInput.substr(posOrt,posTemperatur-posOrt-1);
-        double_tempDaten=atof(tempDaten.c_str());
-
-        myInput=myInput.substr(posTemperatur+1,myInput.length());
+        str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length());
     }
 
 

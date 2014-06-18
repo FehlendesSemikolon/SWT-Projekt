@@ -10,12 +10,16 @@ struct Temperaturen{
     string str_Temperatur;
 };
 
+struct Data{
+    string Metadaten;
+    vector<Temperaturen> vectorTemperaturen;
+};
 
 class ObserverData
 {
 public:
     ObserverData();
-    virtual void update(vector<Temperaturen> vectorTempa)=0;
+    virtual void update(Data data_myTemperaturdaten)=0;
 };
 
 #endif // OBSERVERDATA_H

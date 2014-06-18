@@ -13,9 +13,12 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::mySetText(string myText)
+void MainWindow::setRohdaten(QString QStr_Temperaturdaten)
 {
+    ui->label_Rohdaten->setText(QStr_Temperaturdaten);
+}
 
-    QString str = QString::fromUtf8(myText.c_str());
-    ui->label->setText(str);
+void MainWindow::setMetadaten(QString QStr_Metadaten)
+{
+    ui->label_Metadaten->setText(QStr_Metadaten);
 }

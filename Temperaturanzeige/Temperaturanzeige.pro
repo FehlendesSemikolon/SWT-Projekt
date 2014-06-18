@@ -17,12 +17,14 @@ SOURCES += main.cpp\
     qcustomplot.cpp \
     observerdata.cpp \
     observerrohform.cpp \
-    subject.cpp
+    subject.cpp \
+    observermetadaten.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
     observerdata.h \
     observerrohform.h \
-    subject.h
+    subject.h \
+    observermetadaten.h
 
 FORMS    += mainwindow.ui
