@@ -25,7 +25,9 @@ void Subject::detach(ObserverData* myObserver)
 
 void Subject::notify()
 {
-
+    list<ObserverData*>::iterator iter = myObservers.begin();
+    for(;iter!=myObservers.end();iter++)
+        (*iter)->update(myTemperatur);
 }
 
 
