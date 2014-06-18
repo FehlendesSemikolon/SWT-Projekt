@@ -14,9 +14,15 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    qcustomplot.cpp
+    qcustomplot.cpp \
+    observerdata.cpp \
+    observerrohform.cpp \
+    subject.cpp
 
 HEADERS  += mainwindow.h \
-    qcustomplot.h
+    qcustomplot.h \
+    observerdata.h \
+    observerrohform.h \
+    subject.h
 
 FORMS    += mainwindow.ui
