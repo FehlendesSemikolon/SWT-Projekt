@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     observerdata.cpp \
     observerrohform.cpp \
     subject.cpp \
-    observermetadaten.cpp
+    observermetadaten.cpp \
+    observerPunktdiagramm.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
     observerdata.h \
     observerrohform.h \
     subject.h \
-    observermetadaten.h
+    observermetadaten.h \
+    oberverPunktdiagramm.h
 
 FORMS    += mainwindow.ui

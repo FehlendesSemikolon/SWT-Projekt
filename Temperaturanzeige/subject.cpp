@@ -16,6 +16,7 @@ Subject::Subject()
 void Subject::attach(ObserverData* myObserver)
 {
     myObservers.push_back(myObserver);
+
 }
 
 void Subject::detach(ObserverData* myObserver)

@@ -18,7 +18,8 @@ public:
     ~MainWindow();
      void setRohdaten(QString QStr_Temperaturdaten);
      void setMetadaten(QString QStr_Metadaten);
-
+     void setPunktdiagramm(QVector<double> x, QVector<double> y);
+     void initPunktdiagramm();
 
 private:
     Ui::MainWindow *ui;
