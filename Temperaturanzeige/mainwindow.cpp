@@ -33,15 +33,11 @@ void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y)
 
 void MainWindow::setBalkendiagramm(QVector<double> x, QVector<double> y)
 {
-/*    QVector<double> keyData;
-    QVector<double> valueData;
 
-    keyData << 1 << 2 << 3;
-    valueData << 2 << 4 << 8;
-*/
     myBars->setData(x, y);
-  //  ui->widget_Balkentdiagramm->rescaleAxes();
     ui->widget_Balkendiagramm->replot();
+
+
 
 
 }

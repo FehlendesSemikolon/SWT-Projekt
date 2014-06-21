@@ -28,6 +28,7 @@ public:
 private:
     Ui::MainWindow *ui;
     QCPBars *myBars;
+
 };
 
 #endif // MAINWINDOW_H

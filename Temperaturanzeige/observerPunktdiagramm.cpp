@@ -14,12 +14,12 @@ void ObserverPunktdiagramm::update(Data data_myTemperaturdaten)
     vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
 
 
-   int int_i=0;
-   for (;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
+
+   for (int i=0;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
    {
-        x[int_i] = int_i;
-        y[int_i]=iter->double_Temperatur;
-        int_i++;
+        x[i] = i;
+        y[i]=iter->double_Temperatur;
+        i++;
    }
 
 

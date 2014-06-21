@@ -7,6 +7,8 @@
 #include "oberverPunktdiagramm.h"
 #include "observerBalkendiagramm.h"
 
+#include "updateTimer.h"
+
 #include <QApplication>
 
 int main(int argc, char *argv[])
@@ -14,6 +16,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow* w = new MainWindow;
     w->show();
+
     Subject mySubject;
     ObserverData* ObserverRohform_Rohform = new ObserverRohform(w);
     ObserverData* ObserverMetadaten_Metadaten = new ObserverMetadaten(w);
@@ -25,7 +28,11 @@ int main(int argc, char *argv[])
     mySubject.attach(ObserverPunktdiagramm_Punktdiagramm);
     mySubject.attach(ObserverBalkendiagramm_Balkendiagramm);
 
-    mySubject.getData();
+    updateTimer myTimer(mySubject);
+
+
+
+    //mySubject.getData();
 
     return a.exec();
 }

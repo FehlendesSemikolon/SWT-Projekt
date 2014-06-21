@@ -3,18 +3,25 @@
 
 #include <string>
 #include <list>
+#include <qtimer.h>
 #include <vector>
 #include "observerdata.h"
 #include "observerrohform.h"
+
+
 using namespace std;
 
 class Subject
 {
 private:
     list<ObserverData*> myObservers; //Liste mit allen Observern
+
     Temperaturen myTemperaturen;
     vector<Temperaturen> myTemperatur;
+
     Data Data_Temperaturdaten;
+
+    QTimer *Qtimer_updateTimer;
 
 public:
     Subject();
@@ -22,6 +29,8 @@ public:
     void notify();
     void attach(ObserverData* myObserver); //Observer anmelden
     void detach(ObserverData* myObserver); //Observer abmelden
+
+
 };
 
 #endif // SUBJECT_H

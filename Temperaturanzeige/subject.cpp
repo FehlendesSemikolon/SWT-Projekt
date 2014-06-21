@@ -11,6 +11,7 @@
 
 Subject::Subject()
 {
+
 }
 
 void Subject::attach(ObserverData* myObserver)
@@ -52,7 +53,7 @@ void Subject::getData()
     }
     else
     {
-        char array[4048];
+        char array[4048]={0};
         DWORD d;
         do {
             d=0;
@@ -97,6 +98,7 @@ void Subject::getData()
         int_i++;
     }
 
+    Data_Temperaturdaten.Metadaten.clear();
     for(int k=0;k<int_countMetadata;k++) //Speichere Metadaten in Vektor und lösche die Zeilen mit den Metadaten aus dem Input String
     {
         size_t size_t_posNewline;
@@ -107,6 +109,7 @@ void Subject::getData()
         str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length());
     }
 
+    Data_Temperaturdaten.vectorTemperaturen.clear();
     for (int i=0;i<(int_countData-int_countMetadata);i++) //Vektor mit allen Orten und Temperaturen erstellen/befüllen
     {
         size_t size_t_posOrt;
@@ -114,6 +117,9 @@ void Subject::getData()
 
         size_t_posOrt=str_Input.find(",");
         size_t_posTemperatur=str_Input.find("\n");
+
+
+
         Data_Temperaturdaten.vectorTemperaturen.push_back(Temperaturen());
         Data_Temperaturdaten.vectorTemperaturen[i].Ort=str_Input.substr(0,size_t_posOrt);
         Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur=str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1);
