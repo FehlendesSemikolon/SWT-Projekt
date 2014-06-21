@@ -5,7 +5,7 @@
 #include <qtimer.h>
 #include"subject.h"
 
-#define UPDATEINTERVALL 60000
+#define UPDATEINTERVALL 1000
 
 class updateTimer : public QObject
 {

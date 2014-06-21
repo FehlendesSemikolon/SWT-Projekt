@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1512</width>
-    <height>855</height>
+    <width>1468</width>
+    <height>723</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,7 +17,7 @@
    <widget class="QLabel" name="label_Rohdaten">
     <property name="geometry">
      <rect>
-      <x>1090</x>
+      <x>720</x>
       <y>10</y>
       <width>201</width>
       <height>131</height>
@@ -30,7 +30,7 @@
    <widget class="QLabel" name="label_Metadaten">
     <property name="geometry">
      <rect>
-      <x>340</x>
+      <x>510</x>
       <y>40</y>
       <width>181</width>
       <height>51</height>
@@ -43,8 +43,8 @@
    <widget class="QCustomPlot" name="widget_Punktdiagramm" native="true">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>210</y>
+      <x>10</x>
+      <y>150</y>
       <width>681</width>
       <height>511</height>
      </rect>
@@ -53,24 +53,11 @@
    <widget class="QCustomPlot" name="widget_Balkendiagramm" native="true">
     <property name="geometry">
      <rect>
-      <x>750</x>
-      <y>210</y>
+      <x>700</x>
+      <y>150</y>
       <width>741</width>
       <height>511</height>
      </rect>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>760</y>
-      <width>46</width>
-      <height>13</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>lbl_debug</string>
     </property>
    </widget>
   </widget>
@@ -79,7 +66,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1512</width>
+     <width>1468</width>
      <height>21</height>
     </rect>
    </property>

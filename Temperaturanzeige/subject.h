@@ -16,12 +16,12 @@ class Subject
 private:
     list<ObserverData*> myObservers; //Liste mit allen Observern
 
-    Temperaturen myTemperaturen;
-    vector<Temperaturen> myTemperatur;
+   // Temperaturen myTemperaturen;
+   // vector<Temperaturen> myTemperatur;
 
     Data Data_Temperaturdaten;
 
-    QTimer *Qtimer_updateTimer;
+
 
 public:
     Subject();

@@ -40,13 +40,10 @@ void Subject::getData()
     HANDLE hConn;
     string str_Input;
 
+    hLib=InternetOpen(L"MeinProgramm",INTERNET_OPEN_TYPE_PRECONFIG, NULL,NULL,0);
 
-    hLib=InternetOpen(L"MeinProgramm",
-        INTERNET_OPEN_TYPE_PRECONFIG,
-        NULL,NULL,0);
-    hConn=InternetOpenUrl(hLib,
-        L"http://tk-labor.iem.thm.de/bti-swt-pa-ss14/hochrechnungen.txt",
-        NULL,0,0,0);
+    hConn=InternetOpenUrl(hLib,L"http://tk-labor.iem.thm.de/bti-swt-pa-ss14/hochrechnungen.txt",NULL,0,0,0);
+
     if(hConn==NULL)
     {
         /* ERROR */

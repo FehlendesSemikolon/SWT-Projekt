@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
 
 
 
-    //mySubject.getData();
+    mySubject.getData();
 
     return a.exec();
 }
