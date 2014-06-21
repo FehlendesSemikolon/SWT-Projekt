@@ -35,46 +35,36 @@ void Subject::notify()
 
 void Subject::getData()
 {
-    //Quelle: http://www.gutefrage.net/frage/c-online-datei-auslesen
+
     HANDLE hLib;
     HANDLE hConn;
     string str_Input;
+    char array[4048] = { 0 };
 
-    hLib=InternetOpen(L"MeinProgramm",INTERNET_OPEN_TYPE_PRECONFIG, NULL,NULL,0);
 
-    hConn=InternetOpenUrl(hLib,L"http://tk-labor.iem.thm.de/bti-swt-pa-ss14/hochrechnungen.txt",NULL,0,0,0);
+    hLib = InternetOpen(L"MeinProgramm", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
+    hConn = InternetOpenUrl(hLib, L"http://tk-labor.iem.thm.de/bti-swt-pa-ss14/hochrechnungen.txt", NULL, 0, 0, 0);
 
-    if(hConn==NULL)
+    if (hConn != NULL)
     {
-        /* ERROR */
-    }
-    else
-    {
-        char array[4048]={0};
         DWORD d;
-        do {
-            d=0;
-            InternetReadFile(hConn,array,4048,&d);
-            /* d=0 = Ende der Webseite erreicht
-             * d=n = array[0...(n-1)] enthält n Bytes von Webseite
-             * Tipp: Mit InternetReadFile(hconn,&c,1,&d);
-             * kann man ein einzelnes Zeichen in die "BYTE"-Variable
-             * "c" einlesen! */
+        InternetReadFile(hConn, array, 4048, &d);
 
-             /* Daten verarbeiten */
-            str_Input=array;
+        str_Input = array;
 
-
-        } while(d!=0);
         InternetCloseHandle(hConn);
-    }
+        InternetCloseHandle(hLib);
+     }
 
-    /* Hier kann man noch mehrere URLs öffnen ... */
 
-    /* Nach dem Lesen der letzten Webseite */
 
-    InternetCloseHandle(hLib);
-    // Quelle Ende
+
+
+
+
+
+
+
 
     int int_i=0;
     int int_countData=0;

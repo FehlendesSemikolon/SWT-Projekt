@@ -5,14 +5,14 @@
 #include <qtimer.h>
 #include"subject.h"
 
-#define UPDATEINTERVALL 1000
+#define UPDATEINTERVALL 60000 //1 Minute
 
 class updateTimer : public QObject
 {
     Q_OBJECT
 
 private :
-    Subject testS;
+    Subject Subject_updatableSubject;
 
 public:
     updateTimer(Subject s);

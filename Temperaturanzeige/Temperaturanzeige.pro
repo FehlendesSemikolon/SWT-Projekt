@@ -21,7 +21,7 @@ SOURCES += main.cpp\
     observermetadaten.cpp \
     observerPunktdiagramm.cpp \
     observerBalkendiagramm.cpp \
-    UpdateTimer.cpp
+    updateTimer.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \

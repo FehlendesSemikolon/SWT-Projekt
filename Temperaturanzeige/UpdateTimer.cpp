@@ -2,7 +2,7 @@
 
 updateTimer::updateTimer(Subject s)
 {
-    testS = s;
+    Subject_updatableSubject = s;
 
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(TimerOverflow()));
@@ -11,6 +11,6 @@ updateTimer::updateTimer(Subject s)
 
 void updateTimer::TimerOverflow()
 {
-    testS.getData();
+    Subject_updatableSubject.getData();
 
 }
