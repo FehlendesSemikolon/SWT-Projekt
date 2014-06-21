@@ -1,5 +1,5 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -31,6 +31,21 @@ void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y)
 
 }
 
+void MainWindow::setBalkendiagramm(QVector<double> x, QVector<double> y)
+{
+/*    QVector<double> keyData;
+    QVector<double> valueData;
+
+    keyData << 1 << 2 << 3;
+    valueData << 2 << 4 << 8;
+*/
+    myBars->setData(x, y);
+  //  ui->widget_Balkentdiagramm->rescaleAxes();
+    ui->widget_Balkendiagramm->replot();
+
+
+}
+
 
 void MainWindow::initPunktdiagramm()
 {
@@ -51,9 +66,44 @@ void MainWindow::initPunktdiagramm()
                       QString::fromUtf8("Darmstadt") << QString::fromUtf8("Offenbach");
 
     ui->widget_Punktdiagramm->xAxis->setAutoTickLabels(false);
+
     ui->widget_Punktdiagramm->xAxis->setTickVectorLabels(QString_Labels);
 
     ui->widget_Punktdiagramm->xAxis->setRange(0,5.5);
     ui->widget_Punktdiagramm->yAxis->setRange(0, 100);
+
+     ui->widget_Balkendiagramm->replot();
+
+
 }
 
+void MainWindow::initBalkendiagramm()
+{
+
+    QVector<QString> QString_Labels;
+
+    myBars = new QCPBars(ui->widget_Balkendiagramm->xAxis, ui->widget_Balkendiagramm->yAxis);
+    ui->widget_Balkendiagramm->addPlottable(myBars);
+
+
+    ui->widget_Balkendiagramm->xAxis->setLabel("Stadt");
+    ui->widget_Balkendiagramm->yAxis->setLabel("Temperatur");
+
+    ui->widget_Balkendiagramm->xAxis->setAutoTickStep(false);
+    ui->widget_Balkendiagramm->xAxis->setTickStep(1);
+
+    QString_Labels << QString::fromUtf8("") << QString::fromUtf8("Friedberg") << QString::fromUtf8("Giessen") <<
+                      QString::fromUtf8("Butzbach") << QString::fromUtf8("Frankfurt")<<
+                      QString::fromUtf8("Darmstadt") << QString::fromUtf8("Offenbach");
+
+    ui->widget_Balkendiagramm->xAxis->setAutoTickLabels(false);
+    ui->widget_Balkendiagramm->xAxis->setTickVectorLabels(QString_Labels);
+
+    ui->widget_Balkendiagramm->xAxis->setRange(0,6.5);
+    ui->widget_Balkendiagramm->yAxis->setRange(0, 100);
+
+    ui->widget_Balkendiagramm->replot();
+
+
+
+}

@@ -19,7 +19,8 @@ SOURCES += main.cpp\
     observerrohform.cpp \
     subject.cpp \
     observermetadaten.cpp \
-    observerPunktdiagramm.cpp
+    observerPunktdiagramm.cpp \
+    observerBalkendiagramm.cpp
 
 HEADERS  += mainwindow.h \
     qcustomplot.h \
@@ -27,6 +28,7 @@ HEADERS  += mainwindow.h \
     observerrohform.h \
     subject.h \
     observermetadaten.h \
-    oberverPunktdiagramm.h
+    oberverPunktdiagramm.h \
+    observerBalkendiagramm.h
 
 FORMS    += mainwindow.ui
