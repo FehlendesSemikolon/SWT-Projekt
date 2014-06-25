@@ -25,21 +25,15 @@ void MainWindow::setMetadaten(QString QStr_Metadaten)
 
 void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y)
 {
-
     ui->widget_Punktdiagramm->graph(0)->setData(x,y);
     ui->widget_Punktdiagramm->replot();
-
 }
+
 
 void MainWindow::setBalkendiagramm(QVector<double> x, QVector<double> y)
 {
-
     myBars->setData(x, y);
     ui->widget_Balkendiagramm->replot();
-
-
-
-
 }
 
 

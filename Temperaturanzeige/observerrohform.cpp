@@ -7,17 +7,29 @@ ObserverRohform::ObserverRohform(MainWindow *w)
 
 void ObserverRohform::update(Data data_myTemperaturdaten)
 {
-    string Str_Temperaturdaten;
-    vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
-    for(;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
+
+    if(data_myTemperaturdaten.int_error==0)
     {
+        string Str_Temperaturdaten;
+        vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
+        for(;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
+        {
 
-        Str_Temperaturdaten = Str_Temperaturdaten + (iter)->Ort + ": " + (iter)->str_Temperatur;
-        Str_Temperaturdaten = Str_Temperaturdaten +"\n";
+            Str_Temperaturdaten = Str_Temperaturdaten + (iter)->Ort + ": " + (iter)->str_Temperatur;
+            Str_Temperaturdaten = Str_Temperaturdaten +"\n";
 
+        }
+
+
+        QStr_Temperaturdaten = QString::fromUtf8(Str_Temperaturdaten.c_str());
     }
 
-    QString QStr_Temperaturdaten = QString::fromUtf8(Str_Temperaturdaten.c_str());
+    else
+        QStr_Temperaturdaten = QString::fromUtf8("Fehler beim Laden der Daten");
+
     myMainWindow->setRohdaten(QStr_Temperaturdaten);
+
+
+
 
 }

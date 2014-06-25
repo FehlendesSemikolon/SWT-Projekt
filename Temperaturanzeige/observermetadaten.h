@@ -7,6 +7,7 @@ class ObserverMetadaten : public ObserverData
 {    
 private:
     MainWindow *myMainWindow;
+    QString QStr_Metadaten;
 
 public:
     ObserverMetadaten(MainWindow *w);

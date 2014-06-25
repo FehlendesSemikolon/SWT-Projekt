@@ -8,6 +8,7 @@ class ObserverRohform : public ObserverData
 {
 private:
     MainWindow *myMainWindow;
+    QString QStr_Temperaturdaten;
 
 public:
     ObserverRohform(MainWindow *w);

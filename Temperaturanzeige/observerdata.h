@@ -13,6 +13,7 @@ struct Temperaturen{
 struct Data{
     string Metadaten;
     vector<Temperaturen> vectorTemperaturen;
+    int int_error=0;
 };
 
 class ObserverData
