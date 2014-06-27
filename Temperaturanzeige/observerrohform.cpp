@@ -8,7 +8,7 @@ ObserverRohform::ObserverRohform(MainWindow *w)
 void ObserverRohform::update(Data data_myTemperaturdaten)
 {
 
-    if(data_myTemperaturdaten.int_error==0)
+    if(data_myTemperaturdaten.Metadaten.find("Fehler")==std::string::npos)
     {
         string Str_Temperaturdaten;
         vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();

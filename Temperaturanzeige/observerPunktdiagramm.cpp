@@ -9,7 +9,7 @@ ObserverPunktdiagramm::ObserverPunktdiagramm(MainWindow *w)
 
 void ObserverPunktdiagramm::update(Data data_myTemperaturdaten)
 {
-    if(data_myTemperaturdaten.int_error==0)
+    if(data_myTemperaturdaten.Metadaten.find("Fehler")==std::string::npos)
     {
        QVector<double> x(6), y(6);
 

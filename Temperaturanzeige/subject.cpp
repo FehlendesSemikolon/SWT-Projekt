@@ -36,7 +36,7 @@ void Subject::notify()
 
 void Subject::getData()
 {
-
+    Data_Temperaturdaten.Metadaten.clear();
     HANDLE hLib;
     HANDLE hConn;
     string str_Input;
@@ -57,16 +57,15 @@ void Subject::getData()
         InternetCloseHandle(hLib);
      }
     else //Fehlerbehandlung wenn der Server nicht gefunden wurde
-        Data_Temperaturdaten.int_error=500;
+        Data_Temperaturdaten.Metadaten="Fehler: Server nicht gefunden";
 
     if(str_Input.find("404 Not")!=std::string::npos)//Fehlerbehandlung wenn Internetseite nicht gefunden
-        Data_Temperaturdaten.int_error=404;
+        Data_Temperaturdaten.Metadaten="Fehler 404, Seite nicht gefunden";
 
     else if(str_Input.find("Friedberger Wetterdienst")==std::string::npos && hConn != NULL)//Fehlerbehandlung bei fehlerhafter Internetseite
-        Data_Temperaturdaten.int_error=300;
+        Data_Temperaturdaten.Metadaten="Fehler: Internetseite fehlerhaft";
 
-
-    else
+    else if(hConn != NULL) //Werte Daten nur aus wenn keine Fehler aufgetreten sind
     {
         int int_i=0;
         int int_countData=0;
@@ -112,7 +111,6 @@ void Subject::getData()
             Data_Temperaturdaten.vectorTemperaturen[i].double_Temperatur=atof(Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur.c_str());
 
             str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length());
-            Data_Temperaturdaten.int_error=0;
         }
 
        }
