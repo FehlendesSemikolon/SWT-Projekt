@@ -17,7 +17,7 @@ void ObserverBalkendiagramm::update(DataContainer Temperaturdaten)
 
         for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
         {
-            x[i] = i;
+            x[i] = i+1;
             y[i]=iter->second;
             i++;
        }
