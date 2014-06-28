@@ -5,17 +5,17 @@ ObserverRohform::ObserverRohform(MainWindow *w)
     myMainWindow=w;
 }
 
-void ObserverRohform::update(Data data_myTemperaturdaten)
+void ObserverRohform::update(DataContainer Temperaturdaten)
 {
 
-    if(data_myTemperaturdaten.Metadaten.find("Fehler")==std::string::npos)
+    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos)
     {
         string Str_Temperaturdaten;
-        vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
-        for(;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
-        {
+        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin();
 
-            Str_Temperaturdaten = Str_Temperaturdaten + (iter)->Ort + ": " + (iter)->str_Temperatur;
+        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
+        {
+            Str_Temperaturdaten = Str_Temperaturdaten + (iter)->first + ": " + to_string((iter)->second);
             Str_Temperaturdaten = Str_Temperaturdaten +"\n";
 
         }

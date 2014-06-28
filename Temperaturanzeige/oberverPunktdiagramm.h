@@ -11,7 +11,7 @@ private:
 
 public:
     ObserverPunktdiagramm(MainWindow *w);
-    void update(Data data_myTemperaturdaten);
+    void update(DataContainer Temperaturdaten);
 
 };
 

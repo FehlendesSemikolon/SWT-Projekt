@@ -6,23 +6,22 @@ ObserverBalkendiagramm::ObserverBalkendiagramm(MainWindow *w)
     w->initBalkendiagramm();
 }
 
-void ObserverBalkendiagramm::update(Data data_myTemperaturdaten)
+void ObserverBalkendiagramm::update(DataContainer Temperaturdaten)
 {
-    if(data_myTemperaturdaten.Metadaten.find("Fehler")==std::string::npos)
+    QVector<double> x(6), y(6);
+    int i=0;
+    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos)
     {
-       QVector<double> x(6), y(6);
 
-        vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
+        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin();
 
-
-       int int_i=0;
-       for (;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
-       {
-            x[int_i] = int_i+1;
-            y[int_i]=iter->double_Temperatur;
-            int_i++;
+        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
+        {
+            x[i] = i;
+            y[i]=iter->second;
+            i++;
        }
-
         myMainWindow->setBalkendiagramm(x,y);
     }
+
 }

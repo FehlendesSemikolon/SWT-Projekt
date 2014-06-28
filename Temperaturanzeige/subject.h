@@ -7,7 +7,7 @@
 #include <vector>
 #include "observerdata.h"
 #include "observerrohform.h"
-
+#include "DataContainer.h"
 
 using namespace std;
 
@@ -19,8 +19,8 @@ private:
    // Temperaturen myTemperaturen;
    // vector<Temperaturen> myTemperatur;
 
-    Data Data_Temperaturdaten;
-
+    //Data Data_Temperaturdaten;
+    DataContainer *DataContainer_Temperaturdaten;
 
 
 public:

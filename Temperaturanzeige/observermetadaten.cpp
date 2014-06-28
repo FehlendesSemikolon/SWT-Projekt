@@ -5,8 +5,8 @@ ObserverMetadaten::ObserverMetadaten(MainWindow *w)
     myMainWindow=w;
 }
 
-void ObserverMetadaten::update(Data data_myTemperaturdaten)
+void ObserverMetadaten::update(DataContainer Temperaturdaten)
  { 
-    QStr_Metadaten = QString::fromUtf8(data_myTemperaturdaten.Metadaten.c_str());
+    QStr_Metadaten = QString::fromUtf8(Temperaturdaten.Metadaten.c_str());
     myMainWindow->setMetadaten(QStr_Metadaten);
  }

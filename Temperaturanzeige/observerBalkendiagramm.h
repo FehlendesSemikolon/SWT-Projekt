@@ -12,7 +12,7 @@ private:
 
 public:
     ObserverBalkendiagramm(MainWindow *w);
-    void update(Data data_myTemperaturdaten);
+    void update(DataContainer Temperaturdaten);
 
 };
 

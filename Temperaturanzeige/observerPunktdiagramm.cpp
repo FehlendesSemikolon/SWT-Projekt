@@ -7,20 +7,19 @@ ObserverPunktdiagramm::ObserverPunktdiagramm(MainWindow *w)
     w->initPunktdiagramm();
 }
 
-void ObserverPunktdiagramm::update(Data data_myTemperaturdaten)
+void ObserverPunktdiagramm::update(DataContainer Temperaturdaten)
 {
-    if(data_myTemperaturdaten.Metadaten.find("Fehler")==std::string::npos)
+    QVector<double> x(6), y(6);
+    int i=0;
+    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos)
     {
-       QVector<double> x(6), y(6);
 
-        vector<Temperaturen>::iterator iter = data_myTemperaturdaten.vectorTemperaturen.begin();
+        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin();
 
-
-
-       for (int i=0;iter!=data_myTemperaturdaten.vectorTemperaturen.end();iter++)
-       {
+        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
+        {
             x[i] = i;
-            y[i]=iter->double_Temperatur;
+            y[i]=iter->second;
             i++;
        }
 

@@ -5,14 +5,11 @@
 #include <windows.h>
 #include <WinInet.h>
 #pragma comment(lib, "WinInet.lib")
-//#pragma comment(lib, "version.lib")
-
-
 
 
 Subject::Subject()
 {
-
+    DataContainer_Temperaturdaten = new DataContainer();
 }
 
 void Subject::attach(ObserverData* myObserver)
@@ -30,13 +27,15 @@ void Subject::notify()
 {
     list<ObserverData*>::iterator iter = myObservers.begin();
     for(;iter!=myObservers.end();iter++)
-        (*iter)->update(Data_Temperaturdaten);
+        (*iter)->update(*DataContainer_Temperaturdaten);
+
 }
 
 
 void Subject::getData()
 {
-    Data_Temperaturdaten.Metadaten.clear();
+    //Data_Temperaturdaten.Metadaten.clear();
+    DataContainer_Temperaturdaten->Metadaten.clear();
     HANDLE hLib;
     HANDLE hConn;
     string str_Input;
@@ -57,13 +56,13 @@ void Subject::getData()
         InternetCloseHandle(hLib);
      }
     else //Fehlerbehandlung wenn der Server nicht gefunden wurde
-        Data_Temperaturdaten.Metadaten="Fehler: Server nicht gefunden";
+        DataContainer_Temperaturdaten->Metadaten="Fehler: Server nicht gefunden";
 
     if(str_Input.find("404 Not")!=std::string::npos)//Fehlerbehandlung wenn Internetseite nicht gefunden
-        Data_Temperaturdaten.Metadaten="Fehler 404, Seite nicht gefunden";
+        DataContainer_Temperaturdaten->Metadaten="Fehler 404, Seite nicht gefunden";
 
     else if(str_Input.find("Friedberger Wetterdienst")==std::string::npos && hConn != NULL)//Fehlerbehandlung bei fehlerhafter Internetseite
-        Data_Temperaturdaten.Metadaten="Fehler: Internetseite fehlerhaft";
+        DataContainer_Temperaturdaten->Metadaten="Fehler: Internetseite fehlerhaft";
 
     else if(hConn != NULL) //Werte Daten nur aus wenn keine Fehler aufgetreten sind
     {
@@ -83,38 +82,39 @@ void Subject::getData()
             int_i++;
         }
 
-        Data_Temperaturdaten.Metadaten.clear();
+        DataContainer_Temperaturdaten->Metadaten.clear(); //Überschreiben der Fehlermeldung ????????????????
+
         for(int k=0;k<int_countMetadata;k++) //Speichere Metadaten in Vektor und lösche die Zeilen mit den Metadaten aus dem Input String
         {
             size_t size_t_posNewline;
             size_t size_t_posColon;
             size_t_posColon=str_Input.find(":");
             size_t_posNewline=str_Input.find("\n");
-            Data_Temperaturdaten.Metadaten=Data_Temperaturdaten.Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon);
+            DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon); //komplett auf qstring umsteigen ?
             str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length());
         }
 
-        Data_Temperaturdaten.vectorTemperaturen.clear();
+        DataContainer_Temperaturdaten->map_Temperaturen.clear();
         for (int i=0;i<(int_countData-int_countMetadata);i++) //Vektor mit allen Orten und Temperaturen erstellen/befüllen
         {
             size_t size_t_posOrt;
             size_t size_t_posTemperatur;
+            string str_tmp;
+            double double_tmp;
 
             size_t_posOrt=str_Input.find(",");
             size_t_posTemperatur=str_Input.find("\n");
 
+            str_tmp = str_Input.substr(0,size_t_posOrt);
+            double_tmp = atof( (str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1)).c_str() ) ;
+            DataContainer_Temperaturdaten->map_Temperaturen[str_tmp] = double_tmp;
 
-
-            Data_Temperaturdaten.vectorTemperaturen.push_back(Temperaturen());
-            Data_Temperaturdaten.vectorTemperaturen[i].Ort=str_Input.substr(0,size_t_posOrt);
-            Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur=str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1);
-            Data_Temperaturdaten.vectorTemperaturen[i].double_Temperatur=atof(Data_Temperaturdaten.vectorTemperaturen[i].str_Temperatur.c_str());
 
             str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length());
         }
 
        }
-        notify();
+      notify();
 
 
 }
