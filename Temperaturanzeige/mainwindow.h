@@ -20,8 +20,8 @@ public:
     ~MainWindow();
      void setRohdaten(QString QStr_Temperaturdaten);
      void setMetadaten(QString QStr_Metadaten);
-     void setPunktdiagramm(QVector<double> x, QVector<double> y);
-     void setBalkendiagramm(QVector<double> x, QVector<double> y);
+     void setPunktdiagramm(QVector<double> x, QVector<double> y, QVector<QString> QString_Labels);
+     void setBalkendiagramm(QVector<double> x, QVector<double> y, QVector<QString> QString_Labels);
      void initPunktdiagramm();
      void initBalkendiagramm();
 

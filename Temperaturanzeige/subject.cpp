@@ -76,7 +76,7 @@ void Subject::parseData(string str_Input)
         int_i++;
     }
 
-    DataContainer_Temperaturdaten->Metadaten.clear(); //Überschreiben der Fehlermeldung ????????????????
+    DataContainer_Temperaturdaten->Metadaten.clear();
 
     for(int k=0;k<int_countMetadata;k++) //Speichere Metadaten in Vektor und lösche die Zeilen mit den Metadaten aus dem Input String
     {
@@ -84,7 +84,7 @@ void Subject::parseData(string str_Input)
         size_t size_t_posColon;
         size_t_posColon=str_Input.find(":");
         size_t_posNewline=str_Input.find("\n");
-        DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon); //komplett auf qstring umsteigen ?
+        DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon);
         str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length());
     }
 
@@ -99,8 +99,9 @@ void Subject::parseData(string str_Input)
         size_t_posOrt=str_Input.find(",");
         size_t_posTemperatur=str_Input.find("\n");
 
-        str_tmp = str_Input.substr(0,size_t_posOrt);
+        str_tmp =str_Input.substr(0,size_t_posOrt); // to_string(i);    ;//str_Input.substr(0,size_t_posOrt);
         double_tmp = atof( (str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1)).c_str() ) ;
+
         DataContainer_Temperaturdaten->map_Temperaturen[str_tmp] = double_tmp;
 
 
@@ -111,8 +112,6 @@ void Subject::parseData(string str_Input)
 
 void Subject::getData()
 {
-   // DataContainer_Temperaturdaten->Metadaten.clear();
-
     string str_Input;
 
 

@@ -23,15 +23,17 @@ void MainWindow::setMetadaten(QString QStr_Metadaten)
     ui->label_Metadaten->setText(QStr_Metadaten);
 }
 
-void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y)
+void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y, QVector<QString> QString_Labels)
 {
+    ui->widget_Punktdiagramm->xAxis->setTickVectorLabels(QString_Labels);
     ui->widget_Punktdiagramm->graph(0)->setData(x,y);
     ui->widget_Punktdiagramm->replot();
 }
 
 
-void MainWindow::setBalkendiagramm(QVector<double> x, QVector<double> y)
+void MainWindow::setBalkendiagramm(QVector<double> x, QVector<double> y,  QVector<QString> QString_Labels)
 {
+    ui->widget_Balkendiagramm->xAxis->setTickVectorLabels(QString_Labels);
     myBars->setData(x, y);
     ui->widget_Balkendiagramm->replot();
 }
@@ -82,12 +84,12 @@ void MainWindow::initBalkendiagramm()
     ui->widget_Balkendiagramm->xAxis->setAutoTickStep(false);
     ui->widget_Balkendiagramm->xAxis->setTickStep(1);
 
-    QString_Labels << QString::fromUtf8("") << QString::fromUtf8("Friedberg") << QString::fromUtf8("Giessen") <<
+/*    QString_Labels << QString::fromUtf8("") << QString::fromUtf8("Friedberg") << QString::fromUtf8("Giessen") <<
                       QString::fromUtf8("Butzbach") << QString::fromUtf8("Frankfurt")<<
                       QString::fromUtf8("Darmstadt") << QString::fromUtf8("Offenbach");
-
+*/
     ui->widget_Balkendiagramm->xAxis->setAutoTickLabels(false);
-    ui->widget_Balkendiagramm->xAxis->setTickVectorLabels(QString_Labels);
+  //  ui->widget_Balkendiagramm->xAxis->setTickVectorLabels(QString_Labels);
 
     ui->widget_Balkendiagramm->xAxis->setRange(0,6.5);
     ui->widget_Balkendiagramm->yAxis->setRange(0, 100);
