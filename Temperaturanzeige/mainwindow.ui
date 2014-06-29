@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1468</width>
+    <width>1295</width>
     <height>723</height>
    </rect>
   </property>
@@ -45,7 +45,7 @@
      <rect>
       <x>10</x>
       <y>150</y>
-      <width>681</width>
+      <width>561</width>
       <height>511</height>
      </rect>
     </property>
@@ -53,9 +53,9 @@
    <widget class="QCustomPlot" name="widget_Balkendiagramm" native="true">
     <property name="geometry">
      <rect>
-      <x>700</x>
+      <x>590</x>
       <y>150</y>
-      <width>741</width>
+      <width>671</width>
       <height>511</height>
      </rect>
     </property>
@@ -66,7 +66,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1468</width>
+     <width>1295</width>
      <height>21</height>
     </rect>
    </property>
