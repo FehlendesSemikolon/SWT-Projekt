@@ -3,10 +3,8 @@
 
 #include <string>
 #include <list>
-#include <qtimer.h>
 #include <vector>
 #include "observerdata.h"
-#include "observerrohform.h"
 #include "DataContainer.h"
 
 
@@ -16,6 +14,7 @@ using namespace std;
 
 class Subject
 {
+
 private:
     list<ObserverData*> myObservers; //Liste mit allen Observern
     DataContainer *DataContainer_Temperaturdaten;
@@ -29,7 +28,6 @@ public:
     void notify();
     void attach(ObserverData* myObserver); //Observer anmelden
     void detach(ObserverData* myObserver); //Observer abmelden
-
 
 };
 

@@ -6,33 +6,42 @@
 #include "observermetadaten.h"
 #include "oberverPunktdiagramm.h"
 #include "observerBalkendiagramm.h"
-
-#include "updateTimer.h"
-
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
+
+/*--------------------Application initiallisierung--------------------------------------------------------------------*/
     QApplication a(argc, argv);
-    MainWindow* w = new MainWindow;
-    w->show();
-
-    Subject mySubject;
-    ObserverData* ObserverRohform_Rohform = new ObserverRohform(w);
-    ObserverData* ObserverMetadaten_Metadaten = new ObserverMetadaten(w);
-    ObserverData* ObserverPunktdiagramm_Punktdiagramm = new ObserverPunktdiagramm(w);
-    ObserverData* ObserverBalkendiagramm_Balkendiagramm = new ObserverBalkendiagramm(w);
-
-    mySubject.attach(ObserverRohform_Rohform);
-    mySubject.attach(ObserverMetadaten_Metadaten);
-    mySubject.attach(ObserverPunktdiagramm_Punktdiagramm);
-    mySubject.attach(ObserverBalkendiagramm_Balkendiagramm);
-
-    updateTimer myTimer(mySubject);
+    MainWindow* MainWindow_startupMainWindow = new MainWindow();
+    MainWindow_startupMainWindow->show();
 
 
+/*--------------------Subject erstellen--------------------------------------------------------------------------------*/
+    Subject *Subject_mainSubject = new Subject;
+    MainWindow_startupMainWindow->addSubject(Subject_mainSubject);
 
-    mySubject.getData();
+
+/*--------------------Erstellen der Observer--------------------------------------------------------------------------*/
+    ObserverData* ObserverRohform_Rohform = new ObserverRohform(MainWindow_startupMainWindow);
+    ObserverData* ObserverMetadaten_Metadaten = new ObserverMetadaten(MainWindow_startupMainWindow);
+    ObserverData* ObserverPunktdiagramm_Punktdiagramm = new ObserverPunktdiagramm(MainWindow_startupMainWindow);
+    ObserverData* ObserverBalkendiagramm_Balkendiagramm = new ObserverBalkendiagramm(MainWindow_startupMainWindow);
+
+
+/*--------------------Anmelden der Observer bei dem Subject----------------------------------------------------------*/
+    Subject_mainSubject->attach(ObserverRohform_Rohform);
+    Subject_mainSubject->attach(ObserverMetadaten_Metadaten);
+    Subject_mainSubject->attach(ObserverPunktdiagramm_Punktdiagramm);
+    Subject_mainSubject->attach(ObserverBalkendiagramm_Balkendiagramm);
+
+
+/*--------------------Erstmalig Daten abrufen und ausgeben---------------------------------------------------------*/
+    Subject_mainSubject->getData();
+
+
+
+
 
     return a.exec();
 }

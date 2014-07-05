@@ -9,23 +9,24 @@ ObserverPunktdiagramm::ObserverPunktdiagramm(MainWindow *w)
 
 void ObserverPunktdiagramm::update(DataContainer Temperaturdaten)
 {
-    QVector<double> x(6), y(6);
-    QVector<QString> QString_Labels;
+    QVector<double> x(6), y(6); //Stellen die x/y Pärchen im Koordinatensystem dar
+    QVector<QString> QString_Labels; //Stellt die Beschriftung eines jeden x/y Pärchens dar
     int i=0;
 
-    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos)
+    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos) //Prüfe ob Fehler aufgetreten sind
     {
 
-        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin();
+        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin(); //Erstellen eines Iterators
 
-        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
-        {
-            QString_Labels << QString::fromUtf8( (iter->first).c_str());
+        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++) //Benötigte Daten aus übergebnem Datencontainer auslesen und
+        {                                                           //in die jeweils passende Variable kopieren
+
+            QString_Labels << QString::fromUtf8( (iter->first).c_str()); //Cstring in QString konvertieren
             x[i] = i;
             y[i]=iter->second;
             i++;
        }
 
-        myMainWindow->setPunktdiagramm(x,y,QString_Labels);
+        myMainWindow->setPunktdiagramm(x,y,QString_Labels); //Übergabe der fertig vorbereiteten Daten an den Controller zum Zeichnen des Punktdiagramms
     }
 }

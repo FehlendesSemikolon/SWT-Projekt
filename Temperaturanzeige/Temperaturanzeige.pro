@@ -15,13 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     qcustomplot.cpp \
-    observerdata.cpp \
     observerrohform.cpp \
     subject.cpp \
     observermetadaten.cpp \
     observerPunktdiagramm.cpp \
     observerBalkendiagramm.cpp \
-    updateTimer.cpp \
+    observerdata.cpp \
     DataContainer.cpp
 
 HEADERS  += mainwindow.h \
@@ -32,7 +31,6 @@ HEADERS  += mainwindow.h \
     observermetadaten.h \
     oberverPunktdiagramm.h \
     observerBalkendiagramm.h \
-    updateTimer.h \
     DataContainer.h
 
 FORMS    += mainwindow.ui
