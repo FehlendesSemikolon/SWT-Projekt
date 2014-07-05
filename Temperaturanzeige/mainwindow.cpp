@@ -60,7 +60,7 @@ void MainWindow::initPunktdiagramm()
 
     //Achen beschriften
     ui->widget_Punktdiagramm->xAxis->setLabel("Stadt");
-    ui->widget_Punktdiagramm->yAxis->setLabel("Temperatur");
+    ui->widget_Punktdiagramm->yAxis->setLabel("Temperatur in C°");
 
     //Automatische Schrittgrößenfestlegung der x-Achse abschalten
     ui->widget_Punktdiagramm->xAxis->setAutoTickStep(false);
@@ -86,7 +86,7 @@ void MainWindow::initBalkendiagramm()
 
     //Achen beschriften
     ui->widget_Balkendiagramm->xAxis->setLabel("Stadt");
-    ui->widget_Balkendiagramm->yAxis->setLabel("Temperatur");
+    ui->widget_Balkendiagramm->yAxis->setLabel("Temperatur in C°");
 
     //Automatische Schrittgrößenfestlegung der x-Achse abschalten
     ui->widget_Balkendiagramm->xAxis->setAutoTickStep(false);
