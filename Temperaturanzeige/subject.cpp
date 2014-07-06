@@ -63,8 +63,8 @@ void Subject::parseData(string str_Input)
     int int_countMetadata=0; //Anzahl der Zeilen mit #
     size_t size_t_len;       //länge des eingelesenen Strings von der Website
 
-    char * char_buffer = new char[str_Input.length()];    //buffer für die Input String
-    size_t_len=strlen(str_Input.c_str());                 //ermittle die Länge des Input Strings
+    char * char_buffer = new char[str_Input.length()+1];    //buffer für die Input String
+    size_t_len=str_Input.length();                 //ermittle die Länge des Input Strings
     strcpy_s(char_buffer,size_t_len+1,str_Input.c_str()); //lege den Input String in den Buffer
 
     for(int i=0;char_buffer[i]!=NULL;i++) //ermittle Anzahl der Zeilen
