@@ -14,44 +14,43 @@ Subject::Subject()
 
 void Subject::attach(ObserverData* myObserver)
 {
-    myObservers.push_back(myObserver);
-
+    myObservers.push_back(myObserver); //melde den Observer beim Subject an
 }
 
 void Subject::detach(ObserverData* myObserver)
 {
-    myObservers.remove(myObserver);
+    myObservers.remove(myObserver); //melde den Observer beim Subject ab
 }
 
 void Subject::notify()
 {
     list<ObserverData*>::iterator iter = myObservers.begin();
-    for(;iter!=myObservers.end();iter++)
-        (*iter)->update(*DataContainer_Temperaturdaten);
+    for(;iter!=myObservers.end();iter++)                 //Gehe die Liste der angemdeleten Observer durch
+        (*iter)->update(*DataContainer_Temperaturdaten); //Informiere den Observer über neue Daten
 
 }
 
 
 string Subject::downloadData()
 {
-    HANDLE hLib;
-    HANDLE hConn;
-    char array[4048] = { 0 };
+    HANDLE handle_InternetConnection; //Handle für die Internetverbindung
+    HANDLE handle_URL;                //Handle für die URL
+    char char_readData[4048] = { 0 }; //Array für die eingelesene Daten
 
 
-    hLib = InternetOpen(L"MeinProgramm", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
-    hConn = InternetOpenUrl(hLib, URL_DATA, NULL, 0, 0, 0);
+    handle_InternetConnection = InternetOpen(L"MeinProgramm", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0); //Stelle Internetverbindung her
+    handle_URL = InternetOpenUrl(handle_InternetConnection, URL_DATA, NULL, 0, 0, 0); //Öffne die URL URL_DATA
 
-    if (hConn != NULL)
+    if (handle_URL != NULL) //Öffnen der URL erfolgreich
     {
-        DWORD d;
-        InternetReadFile(hConn, array, 4048, &d);
+        DWORD DWORD_NumberOfBytesRead; //Anzahl der bereits eingelesenen Bytes, wird von InternetReadFile zu beginn auf 0 gesetzt
+        InternetReadFile(handle_URL, char_readData, 4048, &DWORD_NumberOfBytesRead); //lesen Daten aus dem Internet und schreibe diese in char_readData
 
-        InternetCloseHandle(hConn);
-        InternetCloseHandle(hLib);
-        return array;
+        InternetCloseHandle(handle_URL);
+        InternetCloseHandle(handle_InternetConnection);
+        return char_readData;
      }
-    else
+    else //Fehlerbehandlung
     {
         return "@"; //@ ist der Rückgabewert falls ein Fehler aufgetreten ist (z.B. Server ist nicht erreichbar)
     }
@@ -60,64 +59,62 @@ string Subject::downloadData()
 
 void Subject::parseData(string str_Input)
 {
-    int int_i=0;
-    int int_countData=0;
-    int int_countMetadata=0;
+    int int_countData=0;     //Anzahl aller Zeilen
+    int int_countMetadata=0; //Anzahl der Zeilen mit #
+    size_t size_t_len;       //länge des eingelesenen Strings von der Website
 
-    char * buffer = new char[str_Input.length()];
-    strcpy(buffer,str_Input.c_str());
+    char * char_buffer = new char[str_Input.length()];    //buffer für die Input String
+    size_t_len=strlen(str_Input.c_str());                 //ermittle die Länge des Input Strings
+    strcpy_s(char_buffer,size_t_len+1,str_Input.c_str()); //lege den Input String in den Buffer
 
-    while(buffer[int_i]!=NULL) //ermittle Anzahl der Zeilen
+    for(int i=0;char_buffer[i]!=NULL;i++) //ermittle Anzahl der Zeilen
     {
-        if (buffer[int_i]=='\n')
+        if (char_buffer[i]=='\n')
             int_countData++;  //Anzahl der Zeilen mit Temperaturdaten
-        if (buffer[int_i]=='#')
+        if (char_buffer[i]=='#')
             int_countMetadata++; //Anzahl der Zeilen mit Metadatem
-        int_i++;
     }
 
-    DataContainer_Temperaturdaten->Metadaten.clear();
 
-    for(int k=0;k<int_countMetadata;k++) //Speichere Metadaten in Vektor und lösche die Zeilen mit den Metadaten aus dem Input String
+    DataContainer_Temperaturdaten->Metadaten.clear(); //lösche alle alten Metadaten aus dem Container
+
+    for(int i=0;i<int_countMetadata;i++) //Speichere Metadaten in DataContainer und "lösche" die Zeilen mit den Metadaten aus dem Input String
     {
-        size_t size_t_posNewline;
-        size_t size_t_posColon;
+        size_t size_t_posNewline;//Position des Zeichens "\n"
+        size_t size_t_posColon;  //Position des Zeichens ":"
         size_t_posColon=str_Input.find(":");
         size_t_posNewline=str_Input.find("\n");
-        DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon);
-        str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length());
+        DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon); //Füge die Zeile mit den Metadaten dem Container hinzu
+        str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length()); //"löscht" die hinzugefügte Zeile aus dem Input String
     }
 
     DataContainer_Temperaturdaten->map_Temperaturen.clear();
-    for (int i=0;i<(int_countData-int_countMetadata);i++) //Vektor mit allen Orten und Temperaturen erstellen/befüllen
+    for (int i=0;i<(int_countData-int_countMetadata);i++) //Container mit allen Orten und Temperaturen befüllen
     {
-        size_t size_t_posOrt;
-        size_t size_t_posTemperatur;
-        string str_tmp;
-        double double_tmp;
+        size_t size_t_posOrt;       //Poistion des ersten Zeichens nach dem Ort
+        size_t size_t_posTemperatur;//Position des ersten Zeichens nach der Temperatur
+        string str_Ort;
+        double double_tmp;  //Temperaturwert
 
         size_t_posOrt=str_Input.find(",");
         size_t_posTemperatur=str_Input.find("\n");
 
-        str_tmp =str_Input.substr(0,size_t_posOrt); // to_string(i);    ;//str_Input.substr(0,size_t_posOrt);
+        str_Ort =str_Input.substr(0,size_t_posOrt); // to_string(i);    ;//str_Input.substr(0,size_t_posOrt);
         double_tmp = atof( (str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1)).c_str() ) ;
 
-        DataContainer_Temperaturdaten->map_Temperaturen[str_tmp] = double_tmp;
+        DataContainer_Temperaturdaten->map_Temperaturen[str_Ort] = double_tmp; //Lege Ort und Temperatur in den Daten Container
 
-
-        str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length());
+        str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length()); //"lösche" die verarbeiteten Daten aus dem Input String
     }
 
 }
 
 void Subject::getData()
 {
-    string str_Input;
+    string str_Input;           //String für die eingelesenen Daten aus dem Internet
+    str_Input = downloadData(); //Lade die Daten von der Website und lege sie in str_Input
 
-
-    str_Input = downloadData();
-
-    if(str_Input.at(0) == '@')
+    if(str_Input.at(0) == '@')//Fehlerbehandlung
     {
         DataContainer_Temperaturdaten->Metadaten="Fehler: Server nicht gefunden";
     }
@@ -130,12 +127,12 @@ void Subject::getData()
             DataContainer_Temperaturdaten->Metadaten="Fehler: Internetseite fehlerhaft";
         else
         {
-            parseData(str_Input);
+            parseData(str_Input); //Wenn keine Fehler aufgetreten sind, parse Daten
         }
     }
-    notify();
-
-
+    notify(); //Informiere Observer über neue Daten
+              //Normalfall: Observer erhalten neue Temperaturdaten
+              //Fehlerfall: Observer erhalten Fehlermeldung
 }
 
 
