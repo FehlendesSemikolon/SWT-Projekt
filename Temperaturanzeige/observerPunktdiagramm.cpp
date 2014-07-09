@@ -13,7 +13,7 @@ void ObserverPunktdiagramm::update(DataContainer Temperaturdaten)
     QVector<QString> QString_Labels; //Stellt die Beschriftung eines jeden x/y Pärchens dar
     int i=0;
 
-    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos) //Prüfe ob Fehler aufgetreten sind
+    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos) //Prüfe ob kein Fehler aufgetreten ist
     {
 
         map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin(); //Erstellen eines Iterators

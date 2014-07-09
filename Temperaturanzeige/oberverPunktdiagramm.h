@@ -5,7 +5,7 @@
 #include "observerdata.h"
 
 /*
-Diese Klasse stellt den Observer für die Datendarstellung als Punktdiagramm dar.
+Observerklasse für die Datendarstellung des Punktdiagramms
  */
 class ObserverPunktdiagramm : public ObserverData
 {

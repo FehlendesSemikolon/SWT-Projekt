@@ -41,7 +41,7 @@ string Subject::downloadData()
     handle_InternetConnection = InternetOpen(L"MeinProgramm", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0); //Stelle Internetverbindung her
     handle_URL = InternetOpenUrl(handle_InternetConnection, URL_DATA, NULL, 0, 0, 0); //Öffne die URL URL_DATA
 
-    if (handle_URL != NULL) //Öffnen der URL erfolgreich
+    if (handle_URL != NULL) //Wenn öffnen der URL erfolgreich
     {
         DWORD DWORD_NumberOfBytesRead; //Anzahl der bereits eingelesenen Bytes, wird von InternetReadFile zu beginn auf 0 gesetzt
         InternetReadFile(handle_URL, char_readData, 4048, &DWORD_NumberOfBytesRead); //lesen Daten aus dem Internet und schreibe diese in char_readData
@@ -52,7 +52,7 @@ string Subject::downloadData()
      }
     else //Fehlerbehandlung
     {
-        return "@"; //@ ist der Rückgabewert falls ein Fehler aufgetreten ist (z.B. Server ist nicht erreichbar)
+        return ""; //Leerstring ist der Rückgabewert falls ein Fehler aufgetreten ist (z.B. Server ist nicht erreichbar, Leere Website)
     }
 }
 
@@ -63,8 +63,8 @@ void Subject::parseData(string str_Input)
     int int_countMetadata=0; //Anzahl der Zeilen mit #
     size_t size_t_len;       //länge des eingelesenen Strings von der Website
 
-    char * char_buffer = new char[str_Input.length()+1];    //buffer für die Input String
-    size_t_len=str_Input.length();                 //ermittle die Länge des Input Strings
+    size_t_len=str_Input.length();  //ermittle die Länge des Input Strings
+    char * char_buffer = new char[size_t_len+1];    //buffer für die Input String
     strcpy_s(char_buffer,size_t_len+1,str_Input.c_str()); //lege den Input String in den Buffer
 
     for(int i=0;char_buffer[i]!=NULL;i++) //ermittle Anzahl der Zeilen
@@ -78,7 +78,8 @@ void Subject::parseData(string str_Input)
 
     DataContainer_Temperaturdaten->Metadaten.clear(); //lösche alle alten Metadaten aus dem Container
 
-    for(int i=0;i<int_countMetadata;i++) //Speichere Metadaten in DataContainer und "lösche" die Zeilen mit den Metadaten aus dem Input String
+    for(int i=0;(i<int_countMetadata) && (i <6);i++) //Speichere Metadaten in DataContainer und "lösche" die Zeilen mit den Metadaten aus dem Input String
+                                                     //liest maximal 6 Datensätze ein
     {
         size_t size_t_posNewline;//Position des Zeichens "\n"
         size_t size_t_posColon;  //Position des Zeichens ":"
@@ -114,9 +115,9 @@ void Subject::getData()
     string str_Input;           //String für die eingelesenen Daten aus dem Internet
     str_Input = downloadData(); //Lade die Daten von der Website und lege sie in str_Input
 
-    if(str_Input.at(0) == '@')//Fehlerbehandlung
+    if(str_Input.empty() == true )//Fehlerbehandlung
     {
-        DataContainer_Temperaturdaten->Metadaten="Fehler: Server nicht gefunden";
+        DataContainer_Temperaturdaten->Metadaten="Fehler: Server nicht gefunden\nOder Website fehlerhaft";
     }
     else
     {

@@ -15,6 +15,10 @@ namespace Ui
     class MainWindow;
 }
 
+/*
+Diese Klasse stellt den Controller gemäß des MVC Pattern dar
+*/
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

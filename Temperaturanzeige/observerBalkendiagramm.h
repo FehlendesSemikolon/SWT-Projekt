@@ -6,7 +6,7 @@
 
 
 /*
-Diese Klasse stellt den Observer für die Datendarstellung als Balkendiagramm dar.
+Observerklasse für die Datendarstellung des Balkendiagramms.
  */
 class ObserverBalkendiagramm : public ObserverData
 {
