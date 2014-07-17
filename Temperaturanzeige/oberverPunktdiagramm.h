@@ -11,11 +11,11 @@ class ObserverPunktdiagramm : public ObserverData
 {
 
 private:
-    MainWindow *myMainWindow; //Verbindung zum Controller
+    MainWindow *MainWindow_ptrMainWindow; //Verbindung zum Controller
 
 public:
-    ObserverPunktdiagramm(MainWindow *w);
-    void update(DataContainer Temperaturdaten); //Funktion zur Benachrichtigung
+    ObserverPunktdiagramm(MainWindow *MainWindow_Referenz);
+    void update(DataContainer DataContainer_Temperaturdaten); //Funktion zur Benachrichtigung
 
 };
 

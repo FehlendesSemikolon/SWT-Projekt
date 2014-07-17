@@ -2,36 +2,36 @@
 #include <string>
 using namespace std;
 
-ObserverRohform::ObserverRohform(MainWindow *w)
+ObserverRohform::ObserverRohform(MainWindow *MainWindow_Referenz)
 {
-    myMainWindow=w;
+    MainWindow_ptrMainWindow=MainWindow_Referenz;
 }
 
-void ObserverRohform::update(DataContainer Temperaturdaten)
+void ObserverRohform::update(DataContainer DataContainer_Temperaturdaten)
 {
 
-    if(Temperaturdaten.Metadaten.find("Fehler")==std::string::npos) //Prüfe ob kein Fehler aufgetreten ist
+    if(DataContainer_Temperaturdaten.string_Metadaten.find("Fehler")==std::string::npos) //Prüfe ob kein Fehler aufgetreten ist
     {
-        string Str_Temperaturdaten; //String in dem alle Orte und Temperaturen geschrieben werden
-        map<string,double>::iterator iter = Temperaturdaten.map_Temperaturen.begin();
+        string string_Temperaturdaten; //String in dem alle Orte und Temperaturen geschrieben werden
+        map<string,double>::iterator iter = DataContainer_Temperaturdaten.map_Temperaturen.begin();
 
-        for(;iter != Temperaturdaten.map_Temperaturen.end();iter++)
+        for(;iter != DataContainer_Temperaturdaten.map_Temperaturen.end();iter++)
         {
             char char_Temperaut[20]; //Temperatur als Char
             sprintf_s(char_Temperaut,"%.2f",(iter)->second,20); //Schreibe Temepratur in ein Char Array
-            Str_Temperaturdaten = Str_Temperaturdaten + (iter)->first + ": " + char_Temperaut; //Schreibe Ort und Temepratur in einen String
-            Str_Temperaturdaten = Str_Temperaturdaten +"\n";
+            string_Temperaturdaten = string_Temperaturdaten + (iter)->first + ": " + char_Temperaut; //Schreibe Ort und Temepratur in einen String
+            string_Temperaturdaten = string_Temperaturdaten +"\n";
 
         }
 
-        QStr_Temperaturdaten = QString::fromUtf8(Str_Temperaturdaten.c_str()); //Wandle den Temeperaturdaten String in einen QStr
+        QString_Temperaturdaten = QString::fromUtf8(string_Temperaturdaten.c_str()); //Wandle den Temeperaturdaten String in einen QString
     }
 
     else //Fehlerbehandlung
     {
-        QStr_Temperaturdaten = QString::fromUtf8("Fehler beim Laden der Daten");
+        QString_Temperaturdaten = QString::fromUtf8("Fehler beim Laden der Daten");
     }
 
-    myMainWindow->setRohdaten(QStr_Temperaturdaten); //Übergebe die Rohdaten an den Controller zum Anzeigen auf der Benutzeroberfläche
+    MainWindow_ptrMainWindow->setRohdaten(QString_Temperaturdaten); //Übergebe die Rohdaten an den Controller zum Anzeigen auf der Benutzeroberfläche
 
 }

@@ -28,8 +28,8 @@ public:
     ~MainWindow();
 
     //Funktionen zum Ausgaben der Meta und Temperaturen als Zeichenfolge
-     void setRohdaten(QString QStr_Temperaturdaten);
-     void setMetadaten(QString QStr_Metadaten);
+     void setRohdaten(QString QString_Temperaturdaten);
+     void setMetadaten(QString QString_Metadaten);
 
      //Funktionen zum Zeichenen der Diagramme. Erwartet werden die Einzelnen Temperaturen als x/y Kooardiate
      //sowie der jeweils zugehörige Ortsname als QString
@@ -41,7 +41,7 @@ public:
      void initBalkendiagramm();
 
      //Registierung des Subjects um bei einem Timerüberlauf das Subject informiert werden kann neue daten ab zu rufen
-     void addSubject(Subject *s);
+     void addSubject(Subject *Subject_ptrSubject);
 
 
 public slots:
@@ -51,10 +51,11 @@ public slots:
 
 
 private:
-    Ui::MainWindow *ui;
-    QCPBars *QCPBars_Bars;
-    Subject *Subject_updateableSubject;
-    QTimer *QTimer_DataUpdateTimer;
+    Ui::MainWindow *ui; //Generiert durch IDE
+    QCPBars *QCPBars_Bars;//Wird benötigt um ein Balkendiagramm in ein qCoustomPlot-widget zu zeichnen
+    Subject *Subject_updateableSubject; //Verweis auf das Subjekt welches die Methode zum aktuallieren der Daten bereit stellt
+                                        //um diese zyklisch durch den Timer aufrufen zu können
+    QTimer *QTimer_DataUpdateTimer; //Timer zum zyklischen aktuallisieren der Daten
 
 };
 

@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 {
 
 /*--------------------Application initiallisierung--------------------------------------------------------------------*/
-    QApplication a(argc, argv);
+    QApplication QApplication_app(argc, argv); //generiert durch IDE
     MainWindow* MainWindow_startupMainWindow = new MainWindow();
     MainWindow_startupMainWindow->show();
 
@@ -43,5 +43,5 @@ int main(int argc, char *argv[])
 
 
 
-    return a.exec();
+    return QApplication_app.exec();
 }

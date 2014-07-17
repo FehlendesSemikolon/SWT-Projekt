@@ -21,19 +21,19 @@ void MainWindow::TimerOverflow()
 }
 
 
-void MainWindow::addSubject(Subject *s)
+void MainWindow::addSubject(Subject *Subject_ptrSubject)
 {
-    Subject_updateableSubject = s; //Verbindung zwischen Controller und Modell
+    Subject_updateableSubject = Subject_ptrSubject; //Verbindung zwischen Controller und Modell
 }
 
-void MainWindow::setRohdaten(QString QStr_Temperaturdaten)
+void MainWindow::setRohdaten(QString QString_Temperaturdaten)
 {
-    ui->label_Rohdaten->setText(QStr_Temperaturdaten); //Ausgeben der Daten als Zeichenkette
+    ui->label_Rohdaten->setText(QString_Temperaturdaten); //Ausgeben der Daten als Zeichenkette
 }
 
-void MainWindow::setMetadaten(QString QStr_Metadaten)
+void MainWindow::setMetadaten(QString QString_Metadaten)
 {
-    ui->label_Metadaten->setText(QStr_Metadaten);//Ausgeben der Metadaten als Zeichenkette
+    ui->label_Metadaten->setText(QString_Metadaten);//Ausgeben der Metadaten als Zeichenkette
 }
 
 void MainWindow::setPunktdiagramm(QVector<double> x, QVector<double> y, QVector<QString> QString_Labels)
@@ -72,7 +72,7 @@ void MainWindow::initPunktdiagramm()
     ui->widget_Punktdiagramm->xAxis->setRange(0,5.5);
     ui->widget_Punktdiagramm->yAxis->setRange(0, 100);
 
-     ui->widget_Balkendiagramm->replot();//Konfigurierten Graph auf GUI zeichnen
+    ui->widget_Balkendiagramm->replot();//Konfigurierten Graph auf GUI zeichnen
 
 
 }

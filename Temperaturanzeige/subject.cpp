@@ -12,20 +12,20 @@ Subject::Subject()
     DataContainer_Temperaturdaten = new DataContainer();
 }
 
-void Subject::attach(ObserverData* myObserver)
+void Subject::attach(ObserverData* ObserverData_Observer)
 {
-    myObservers.push_back(myObserver); //melde den Observer beim Subject an
+    list_Observer.push_back(ObserverData_Observer); //melde den Observer beim Subject an
 }
 
-void Subject::detach(ObserverData* myObserver)
+void Subject::detach(ObserverData* ObserverData_Observer)
 {
-    myObservers.remove(myObserver); //melde den Observer beim Subject ab
+    list_Observer.remove(ObserverData_Observer); //melde den Observer beim Subject ab
 }
 
 void Subject::notify()
 {
-    list<ObserverData*>::iterator iter = myObservers.begin();
-    for(;iter!=myObservers.end();iter++)                 //Gehe die Liste der angemdeleten Observer durch
+    list<ObserverData*>::iterator iter = list_Observer.begin();
+    for(;iter!=list_Observer.end();iter++)                 //Gehe die Liste der angemdeleten Observer durch
         (*iter)->update(*DataContainer_Temperaturdaten); //Informiere den Observer über neue Daten
 
 }
@@ -57,78 +57,78 @@ string Subject::downloadData()
 }
 
 
-void Subject::parseData(string str_Input)
+void Subject::parseData(string string_Input)
 {
     int int_countData=0;     //Anzahl aller Zeilen
     int int_countMetadata=0; //Anzahl der Zeilen mit #
     size_t size_t_len;       //länge des eingelesenen Strings von der Website
 
-    size_t_len=str_Input.length();  //ermittle die Länge des Input Strings
+    size_t_len=string_Input.length();  //ermittle die Länge des Input Strings
     char * char_buffer = new char[size_t_len+1];    //buffer für die Input String
-    strcpy_s(char_buffer,size_t_len+1,str_Input.c_str()); //lege den Input String in den Buffer
+    strcpy_s(char_buffer,size_t_len+1,string_Input.c_str()); //lege den Input String in den Buffer
 
-    for(int i=0;char_buffer[i]!=NULL;i++) //ermittle Anzahl der Zeilen
+    for(int int_i=0;char_buffer[int_i]!=NULL;int_i++) //ermittle Anzahl der Zeilen
     {
-        if (char_buffer[i]=='\n')
+        if (char_buffer[int_i]=='\n')
             int_countData++;  //Anzahl der Zeilen mit Temperaturdaten
-        if (char_buffer[i]=='#')
+        if (char_buffer[int_i]=='#')
             int_countMetadata++; //Anzahl der Zeilen mit Metadatem
     }
 
 
-    DataContainer_Temperaturdaten->Metadaten.clear(); //lösche alle alten Metadaten aus dem Container
+    DataContainer_Temperaturdaten->string_Metadaten.clear(); //lösche alle alten Metadaten aus dem Container
 
-    for(int i=0;(i<int_countMetadata) && (i <6);i++) //Speichere Metadaten in DataContainer und "lösche" die Zeilen mit den Metadaten aus dem Input String
-                                                     //liest maximal 6 Datensätze ein
+    for(int int_i=0;(int_i<int_countMetadata) && (int_i <6);int_i++) //Speichere Metadaten in DataContainer und "lösche" die Zeilen mit den Metadaten aus dem Input String
+                                                                     //liest maximal 6 Datensätze ein
     {
         size_t size_t_posNewline;//Position des Zeichens "\n"
         size_t size_t_posColon;  //Position des Zeichens ":"
-        size_t_posColon=str_Input.find(":");
-        size_t_posNewline=str_Input.find("\n");
-        DataContainer_Temperaturdaten->Metadaten = DataContainer_Temperaturdaten->Metadaten + str_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon); //Füge die Zeile mit den Metadaten dem Container hinzu
-        str_Input=str_Input.substr(size_t_posNewline+1,str_Input.length()); //"löscht" die hinzugefügte Zeile aus dem Input String
+        size_t_posColon=string_Input.find(":");
+        size_t_posNewline=string_Input.find("\n");
+        DataContainer_Temperaturdaten->string_Metadaten = DataContainer_Temperaturdaten->string_Metadaten + string_Input.substr(size_t_posColon+1,size_t_posNewline-size_t_posColon); //Füge die Zeile mit den Metadaten dem Container hinzu
+        string_Input=string_Input.substr(size_t_posNewline+1,string_Input.length()); //"löscht" die hinzugefügte Zeile aus dem Input String
     }
 
     DataContainer_Temperaturdaten->map_Temperaturen.clear();
-    for (int i=0;i<(int_countData-int_countMetadata);i++) //Container mit allen Orten und Temperaturen befüllen
+    for (int int_i=0;int_i<(int_countData-int_countMetadata);int_i++) //Container mit allen Orten und Temperaturen befüllen
     {
         size_t size_t_posOrt;       //Poistion des ersten Zeichens nach dem Ort
         size_t size_t_posTemperatur;//Position des ersten Zeichens nach der Temperatur
-        string str_Ort;
-        double double_tmp;  //Temperaturwert
+        string string_Ort;
+        double double_Temperatur;  //Temperaturwert
 
-        size_t_posOrt=str_Input.find(",");
-        size_t_posTemperatur=str_Input.find("\n");
+        size_t_posOrt=string_Input.find(",");
+        size_t_posTemperatur=string_Input.find("\n");
 
-        str_Ort =str_Input.substr(0,size_t_posOrt); // to_string(i);    ;//str_Input.substr(0,size_t_posOrt);
-        double_tmp = atof( (str_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1)).c_str() ) ;
+        string_Ort =string_Input.substr(0,size_t_posOrt); //Der Ort aus den eingelesenen Daten wird in der Variable string_Ort gespeichert
+        double_Temperatur = atof( (string_Input.substr(size_t_posOrt+1,size_t_posTemperatur-size_t_posOrt-1)).c_str() );//Die Temperatur aus den eingelesenen Daten wird in Double konvertiert und in der Variable string_Ort gespeichert
 
-        DataContainer_Temperaturdaten->map_Temperaturen[str_Ort] = double_tmp; //Lege Ort und Temperatur in den Daten Container
+        DataContainer_Temperaturdaten->map_Temperaturen[string_Ort] = double_Temperatur; //Lege Ort und Temperatur in den Daten Container
 
-        str_Input=str_Input.substr(size_t_posTemperatur+1,str_Input.length()); //"lösche" die verarbeiteten Daten aus dem Input String
+        string_Input=string_Input.substr(size_t_posTemperatur+1,string_Input.length()); //"lösche" die verarbeiteten Daten aus dem Input String
     }
 
 }
 
 void Subject::getData()
 {
-    string str_Input;           //String für die eingelesenen Daten aus dem Internet
-    str_Input = downloadData(); //Lade die Daten von der Website und lege sie in str_Input
+    string string_Input;           //String für die eingelesenen Daten aus dem Internet
+    string_Input = downloadData(); //Lade die Daten von der Website und lege sie in string_Input
 
-    if(str_Input.empty() == true )//Fehlerbehandlung
+    if(string_Input.empty() == true )//Fehlerbehandlung
     {
-        DataContainer_Temperaturdaten->Metadaten="Fehler: Server nicht gefunden\nOder Website fehlerhaft";
+        DataContainer_Temperaturdaten->string_Metadaten="Fehler: Server nicht gefunden\nOder Website fehlerhaft";
     }
     else
     {
-        if(str_Input.find("404 Not")!=std::string::npos)//Fehlerbehandlung wenn Internetseite nicht gefunden
-            DataContainer_Temperaturdaten->Metadaten="Fehler 404, Seite nicht gefunden";
+        if(string_Input.find("404 Not")!=std::string::npos)//Fehlerbehandlung wenn Internetseite nicht gefunden
+            DataContainer_Temperaturdaten->string_Metadaten="Fehler 404, Seite nicht gefunden";
 
-        else if(str_Input.find("Friedberger Wetterdienst")==std::string::npos )//Fehlerbehandlung bei fehlerhafter Internetseite
-            DataContainer_Temperaturdaten->Metadaten="Fehler: Internetseite fehlerhaft";
+        else if(string_Input.find("Friedberger Wetterdienst")==std::string::npos )//Fehlerbehandlung bei fehlerhafter Internetseite
+            DataContainer_Temperaturdaten->string_Metadaten="Fehler: Internetseite fehlerhaft";
         else
         {
-            parseData(str_Input); //Wenn keine Fehler aufgetreten sind, parse Daten
+            parseData(string_Input); //Wenn keine Fehler aufgetreten sind, parse Daten
         }
     }
     notify(); //Informiere Observer über neue Daten

@@ -7,8 +7,8 @@
 using namespace std;
 
 /*
-Diese Klasse stellt den Container da in welchem die Heruntergeladenen und geparsten
-Daten gespeichert werden um sie an weitere Komponenten weitergeben zu können
+Diese Klasse stellt den Container dar in welchem die Heruntergeladenen und geparsten
+Daten gespeichert werden um sie an die Observer weitergeben zu können
 */
 
 class DataContainer
@@ -16,7 +16,7 @@ class DataContainer
 public:
     DataContainer();
 
-    string Metadaten;
+    string string_Metadaten;
     map<string, double> map_Temperaturen; //Pärchen aus Ort(als String) und der zugehörigen Temperatur(als Double)
 
 

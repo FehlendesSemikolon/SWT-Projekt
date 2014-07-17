@@ -10,12 +10,12 @@ Observerklasse für die Datendarstellung der Metadaten
 class ObserverMetadaten : public ObserverData
 {    
 private:
-    MainWindow *myMainWindow; //Verbindung zum Controller
-    QString QStr_Metadaten;
+    MainWindow *MainWindow_ptrMainWindow; //Verbindung zum Controller
+    QString QString_Metadaten;
 
 public:
-    ObserverMetadaten(MainWindow *w);
-    void update(DataContainer Temperaturdaten);//Funktion zur Benachrichtigung
+    ObserverMetadaten(MainWindow *MainWindow_Referenz);
+    void update(DataContainer DataContainer_Temperaturdaten);//Funktion zur Benachrichtigung
 
 };
 
