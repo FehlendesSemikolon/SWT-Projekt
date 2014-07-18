@@ -31,6 +31,7 @@ private:
                                          //Ort (String)
                                          //Temperatur (Double)
                                          //Diese geparsten Daten werden in DataContainer_Temperaturdaten gelegt
+    void notify(); //Informiert alle angemeldeten Observer über neue Daten
 
 public:
     Subject();
@@ -38,7 +39,6 @@ public:
                     //Überprüft ob das Herrunterladen der Daten geklappt hat, im Fehlerfall wird der Fehler behandelt
                     //ruft die Funktion notify auf
 
-    void notify(); //Informiert alle angemeldeten Observer über neue Daten
     void attach(ObserverData* ObserverData_Observer); //Observer anmelden
     void detach(ObserverData* ObserverData_Observer); //Observer abmelden
 

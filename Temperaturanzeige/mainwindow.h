@@ -44,7 +44,7 @@ public:
      void addSubject(Subject *Subject_ptrSubject);
 
 
-public slots:
+private slots:
 
      //Funktion welche beim Timerüberlauf aufgerufen wird
      void TimerOverflow();
